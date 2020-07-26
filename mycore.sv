@@ -172,7 +172,7 @@ localparam CONF_STR = {
 	"-;",
 	"O1,Aspect ratio,4:3,16:9;",
 	"O2,TV Mode,NTSC,PAL;",
-	"O34,Noise,White,Red,Green,Blue;",
+	"O34,Noise,White,Red,Purple,Blue;",
 	"-;",
 	"P1,Test Page 1;",
 	"P1-;",
@@ -265,9 +265,9 @@ assign CE_PIXEL = ce_pix;
 assign VGA_DE = ~(HBlank | VBlank);
 assign VGA_HS = HSync;
 assign VGA_VS = VSync;
-assign VGA_G  = (!col || col == 2) ? video : 8'd0;
-assign VGA_R  = (!col || col == 1) ? video : 8'd0;
-assign VGA_B  = (!col || col == 3) ? video : 8'd0;
+assign VGA_G  = (!col) ? video : 8'd0;
+assign VGA_R  = (!col || col == 1 || col == 2) ? video : 8'd0;
+assign VGA_B  = (!col || col == 3 || col == 2) ? video : 8'd0;
 
 reg  [26:0] act_cnt;
 always @(posedge clk_sys) act_cnt <= act_cnt + 1'd1; 
